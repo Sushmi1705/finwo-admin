@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: '/api', // Updated to match backend route structure
+    baseURL: import.meta.env.VITE_API_URL || '/api',
 });
 
 // Request interceptor to add token
