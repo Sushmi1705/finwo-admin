@@ -20,6 +20,12 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/shops', shopRoutes);
 app.use('/api/menus', menuRoutes);
 
+const path = require('path');
+app.get('/api/debug/download-db', (req, res) => {
+  const dbPath = path.join(__dirname, '../prisma/dev.db'); // Adjust path if needed
+  res.download(dbPath);
+});
+
 app.get('/', (req, res) => {
     res.send('Admin Backend Running');
 });
