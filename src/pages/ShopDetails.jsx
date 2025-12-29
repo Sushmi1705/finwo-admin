@@ -8,8 +8,8 @@ const ShopDetails = () => {
     const isNew = id === 'new';
 
     const [shop, setShop] = useState({
-        name: '', categoryId: '', description: '', address: '', area: '', city: '',
-        latitude: 0, longitude: 0, phoneNumber: '', isActive: true, logoUrl: ''
+        name: '', categoryId: '', description: '', reviewDescription: '', address: '', area: '', city: '',
+        latitude: 0, longitude: 0, phoneNumber: '', isActive: true, logoUrl: '', websiteUrl: '', chatLink: '', openHours: ''
     });
     const [categories, setCategories] = useState([]);
     const [menus, setMenus] = useState([]);
@@ -114,9 +114,25 @@ const ShopDetails = () => {
                         <label className="block text-sm font-semibold text-gray-700 mb-1">Description</label>
                         <textarea className="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="2" value={shop.description || ''} onChange={e => setShop({ ...shop, description: e.target.value })} />
                     </div>
+                    <div className="col-span-2">
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">Review Description</label>
+                        <textarea className="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="2" value={shop.reviewDescription || ''} onChange={e => setShop({ ...shop, reviewDescription: e.target.value })} />
+                    </div>
                     <div className="col-span-2 md:col-span-1">
                         <label className="block text-sm font-semibold text-gray-700 mb-1">Image URL</label>
                         <input className="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none" value={shop.logoUrl || ''} onChange={e => setShop({ ...shop, logoUrl: e.target.value })} />
+                    </div>
+                    <div className="col-span-2">
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">Website URL</label>
+                        <input className="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none" value={shop.websiteUrl || ''} onChange={e => setShop({ ...shop, websiteUrl: e.target.value })} />
+                    </div>
+                    <div className="col-span-2">
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">Chat Link</label>
+                        <input className="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none" value={shop.chatLink || ''} onChange={e => setShop({ ...shop, chatLink: e.target.value })} />
+                    </div>
+                    <div className="col-span-2">
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">Open Hours</label>
+                        <input className="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none" value={shop.openHours || ''} onChange={e => setShop({ ...shop, openHours: e.target.value })} placeholder="e.g. 09:00 - 21:00" />
                     </div>
                     <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-1">Phone Number</label>

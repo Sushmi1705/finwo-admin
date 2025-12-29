@@ -15,8 +15,16 @@ const Shops = () => {
         categoryId: '',
         logoUrl: '',
         description: '',
+        reviewDescription: '',
         address: '',
-        phoneNumber: ''
+        phoneNumber: '',
+        area: '',
+        city: '',
+        latitude: '',
+        longitude: '',
+        websiteUrl: '',
+        chatLink: '',
+        openHours: ''
     });
 
     useEffect(() => {
@@ -50,8 +58,16 @@ const Shops = () => {
                 categoryId: shop.categoryId,
                 logoUrl: shop.logoUrl || '',
                 description: shop.description || '',
+                reviewDescription: shop.reviewDescription || '',
                 address: shop.address || '',
-                phoneNumber: shop.phoneNumber || ''
+                phoneNumber: shop.phoneNumber || '',
+                area: shop.area || '',
+                city: shop.city || '',
+                latitude: shop.latitude ?? '',
+                longitude: shop.longitude ?? '',
+                websiteUrl: shop.websiteUrl || '',
+                chatLink: shop.chatLink || '',
+                openHours: shop.openHours || ''
             });
         } else {
             setEditingShop(null);
@@ -60,8 +76,16 @@ const Shops = () => {
                 categoryId: selectedCategoryId || (categories.length > 0 ? categories[0].id : ''),
                 logoUrl: '',
                 description: '',
+                reviewDescription: '',
                 address: '',
-                phoneNumber: ''
+                phoneNumber: '',
+                area: '',
+                city: '',
+                latitude: '',
+                longitude: '',
+                websiteUrl: '',
+                chatLink: '',
+                openHours: ''
             });
         }
         setIsModalOpen(true);
@@ -165,6 +189,12 @@ const Shops = () => {
                                     <MapPin className="w-4 h-4 mr-2 text-gray-400" />
                                     <span className="truncate">{shop.address || 'No address'}</span>
                                 </div>
+                                {(shop.area || shop.city) && (
+                                    <div className="text-xs text-gray-400 mt-1">
+                                        {shop.area ? <span className="mr-1">{shop.area}</span> : null}
+                                        {shop.city ? <span>{shop.city}</span> : null}
+                                    </div>
+                                )}
                                 <div className="flex items-center text-sm text-gray-600">
                                     <Phone className="w-4 h-4 mr-2 text-gray-400" />
                                     <span className="truncate">{shop.phoneNumber || 'No phone'}</span>
@@ -230,6 +260,15 @@ const Shops = () => {
                                     </select>
                                 </div>
                                 <div className="col-span-2">
+                                    <label className="block mb-1 text-sm font-medium text-gray-700">Review Description</label>
+                                    <textarea
+                                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        rows="2"
+                                        value={formData.reviewDescription}
+                                        onChange={(e) => setFormData({ ...formData, reviewDescription: e.target.value })}
+                                    />
+                                </div>
+                                <div className="col-span-2">
                                     <label className="block mb-1 text-sm font-medium text-gray-700">Logo/Image URL</label>
                                     <input
                                         type="text"
@@ -264,6 +303,74 @@ const Shops = () => {
                                         className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                         value={formData.address}
                                         onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block mb-1 text-sm font-medium text-gray-700">Area</label>
+                                    <input
+                                        type="text"
+                                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        value={formData.area}
+                                        onChange={(e) => setFormData({ ...formData, area: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block mb-1 text-sm font-medium text-gray-700">City</label>
+                                    <input
+                                        type="text"
+                                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        value={formData.city}
+                                        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block mb-1 text-sm font-medium text-gray-700">Latitude</label>
+                                    <input
+                                        type="number"
+                                        step="any"
+                                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        value={formData.latitude}
+                                        onChange={(e) => setFormData({ ...formData, latitude: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block mb-1 text-sm font-medium text-gray-700">Longitude</label>
+                                    <input
+                                        type="number"
+                                        step="any"
+                                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        value={formData.longitude}
+                                        onChange={(e) => setFormData({ ...formData, longitude: e.target.value })}
+                                    />
+                                </div>
+                                <div className="col-span-2">
+                                    <label className="block mb-1 text-sm font-medium text-gray-700">Website URL</label>
+                                    <input
+                                        type="text"
+                                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        placeholder="https://..."
+                                        value={formData.websiteUrl}
+                                        onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
+                                    />
+                                </div>
+                                <div className="col-span-2">
+                                    <label className="block mb-1 text-sm font-medium text-gray-700">Chat Link</label>
+                                    <input
+                                        type="text"
+                                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        placeholder="https://t.me/... or https://wa.me/..."
+                                        value={formData.chatLink}
+                                        onChange={(e) => setFormData({ ...formData, chatLink: e.target.value })}
+                                    />
+                                </div>
+                                <div className="col-span-2">
+                                    <label className="block mb-1 text-sm font-medium text-gray-700">Open Hours</label>
+                                    <input
+                                        type="text"
+                                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        placeholder="e.g. 09:00 - 21:00"
+                                        value={formData.openHours}
+                                        onChange={(e) => setFormData({ ...formData, openHours: e.target.value })}
                                     />
                                 </div>
                             </div>

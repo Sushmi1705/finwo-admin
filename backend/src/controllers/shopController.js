@@ -29,15 +29,39 @@ export const getShopById = async (req, res) => {
 
 export const createShop = async (req, res) => {
     try {
-        const { categoryId, name, logoUrl, description, address, phoneNumber } = req.body;
+        const {
+            categoryId,
+            name,
+            logoUrl,
+            description,
+            reviewDescription,
+            address,
+            phoneNumber,
+            area,
+            city,
+            latitude,
+            longitude,
+            websiteUrl,
+            chatLink,
+            openHours
+        } = req.body;
+
         const shop = await prisma.shop.create({
             data: {
                 categoryId,
                 name,
                 logoUrl,
                 description,
+                reviewDescription,
                 address,
-                phoneNumber
+                phoneNumber,
+                area,
+                city,
+                latitude: latitude ? parseFloat(latitude) : null,
+                longitude: longitude ? parseFloat(longitude) : null,
+                websiteUrl,
+                chatLink,
+                openHours
             }
         });
         res.json(shop);
@@ -50,7 +74,10 @@ export const createShop = async (req, res) => {
 export const updateShop = async (req, res) => {
     try {
         const { id } = req.params;
-        const data = req.body;
+        const data = { ...req.body };
+        if (data.latitude !== undefined && data.latitude !== null && data.latitude !== '') data.latitude = parseFloat(data.latitude);
+        if (data.longitude !== undefined && data.longitude !== null && data.longitude !== '') data.longitude = parseFloat(data.longitude);
+
         const shop = await prisma.shop.update({
             where: { id },
             data
